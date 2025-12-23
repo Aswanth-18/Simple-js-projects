@@ -1,0 +1,8 @@
+node_modules/
+Music/
+*.mp3
+*.mp4
+*.zip
+*.rar
+*.exe
+desktop.ini
