@@ -1,0 +1,142 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background:url('https://w0.peakpx.com/wallpaper/313/459/HD-wallpaper-beautiful-nature-black-background-black-background.jpg ') no-repeat;
+    background-size: cover;
+    background-position: center;
+    animation: animateBg 10s linear infinite;
+}
+
+@keyframes animateBg{
+    100%{
+        filter: hue-rotate(360deg);
+    }
+}
+.login1{
+    position: relative;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .5);
+    width: 400px;
+    height: 450px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+}
+h2{
+
+    display: flex;
+    color: #fff;
+   justify-content: center;
+
+}
+.input-box{
+    position: relative;
+    width: 320px;
+    margin: 30px 0;
+    border-bottom: 2px solid #fff;
+}
+.input-box label{
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    font-size: 1.2em;
+    transform: translateY(-50%);
+    transition: .5;
+    color: #fff;
+}
+.input-box input:valid~label,
+.input-box input:focus~label{
+    top: -5px;
+}
+.input-box input{
+    width: 100%;
+    height: 50px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    color: #fff;
+    
+}
+.input-box .icon{
+    position: absolute;
+    right: 5px;
+    color: antiquewhite;
+    font-size: 1.2em;
+    line-height: 57px;
+}
+
+.rem{
+    margin: -15px 0 15px;
+    font-size: .9em;
+    display: flex;
+    justify-content: space-between;
+    color: #fff;
+}
+.rem label input{
+    margin-right: 3px;
+    
+}
+
+.rem a{
+    color: #fff;
+    text-decoration: none;
+}
+
+.rem a:hover{
+    text-decoration: underline;
+}
+
+button{
+    width: 100%;
+    height: 40px;
+    background-color: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 1em;
+    color: black;
+    font-weight: 500;
+}
+.reg{
+    font-size: .9em;
+    color:white;
+    text-align: center;
+    margin: 25px 0 10px;
+}
+
+.reg p a{
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.reg p a:hover{
+    text-decoration: underline;
+}
+
+
+@media (max-width:360px){
+    .login1{
+        width: 100%;
+        height: 100vh;
+        border: none;
+        border-radius: 0;
+
+    }
+    .input-box{
+        width: 290px;
+    }
+}

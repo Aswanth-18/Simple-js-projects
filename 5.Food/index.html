@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cakezo – Fresh & Delicious Cakes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body class="bg-[#FFF7F2] text-[#4B2E2B]">
+
+  <!-- NAVBAR -->
+  <header class="w-full bg-white shadow-sm sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto flex items-center justify-between py-4 px-4">
+
+      <div class="flex items-center gap-2">
+        <img src="food/ff.png"
+             class="h-20 w-auto object-contain" />
+      </div>
+
+      <nav class="hidden md:flex gap-8 text-sm font-medium">
+        <a href="#" class="hover:text-pink-500">Home</a>
+        <a href="#cakes" class="hover:text-pink-500">Cakes</a>
+        <a href="#pastries" class="hover:text-pink-500">Pastries</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+
+        <!-- Removed Search Button -->
+
+        <button id="cart-btn"
+                class="relative w-10 h-10 flex items-center justify-center bg-pink-100 hover:bg-pink-200 rounded">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span id="cart-count"
+                class="absolute -top-1 -right-1 bg-pink-500 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
+        </button>
+
+        <button id="login-btn"
+                class="w-10 h-10 flex items-center justify-center bg-pink-100 hover:bg-pink-200 rounded">
+          <i class="fa-solid fa-user"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Removed Search Panel -->
+  </header>
+
+
+  <!-- CART PANEL -->
+  <div id="cart-panel"
+       class="hidden fixed right-4 top-20 w-80 bg-white shadow-xl rounded-md z-50">
+    <div class="p-4 border-b flex justify-between items-center">
+      <h3 class="font-bold">Your Items</h3>
+      <button onclick="toggleCart(false)"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div id="cart-items" class="max-h-64 overflow-y-auto px-4 py-3 space-y-3"></div>
+    <div class="px-4 py-3 border-t">
+      
+      <div class="flex justify-between font-semibold mb-3">
+        <span>Total:</span>
+        <span id="cart-total">₹0.00</span>
+      </div>
+      <button class="w-full py-2 border border-[#4B2E2B] text-[#4B2E2B] rounded hover:bg-[#4B2E2B] hover:text-white">
+        Checkout
+      </button>
+    </div>
+  </div>
+
+  <!-- LOGIN PANEL -->
+  <div id="login-panel"
+       class="hidden fixed right-4 top-20 w-80 bg-white shadow-xl rounded-md z-50">
+    <div class="p-4 border-b flex justify-between items-center">
+      <h3 class="font-bold">Login Now</h3>
+      <button onclick="toggleLogin(false)"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="p-4 space-y-3">
+      <input type="email" placeholder="Email" class="w-full border px-3 py-2 rounded">
+      <input type="password" placeholder="Password" class="w-full border px-3 py-2 rounded">
+      <button class="w-full py-2 border border-[#4B2E2B] text-[#4B2E2B] rounded hover:bg-[#4B2E2B] hover:text-white">
+        Login Now
+      </button>
+    </div>
+  </div>
+
+  <!-- Overlay -->
+  <div id="overlay" class="hidden fixed inset-0 bg-black/20 z-40"></div>
+
+
+  <!-- HERO -->
+  <section class="bg-white relative z-10">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-6 py-10 px-4">
+      <div class="flex-1 text-center md:text-left">
+        <h1 class="text-4xl font-bold">
+          Fresh <span class="text-pink-500">Cakes & Pastries</span> Made With Love ❤️
+        </h1>
+        <p class="mt-2">Order the best pastries and cakes in town!</p>
+        <button class="mt-5 px-6 py-2 border border-[#4B2E2B] rounded hover:bg-[#4B2E2B] hover:text-white">
+          Order Now
+        </button>
+      </div>
+
+      <img src="https://images.pexels.com/photos/8969234/pexels-photo-8969234.jpeg?auto=compress&cs=tinysrgb&w=600"
+           class="rounded-lg shadow-md max-w-sm" />
+    </div>
+  </section>
+
+
+  <!-- ⭐ CAKES SECTION -->
+  <section id="cakes" class="pb-14">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-xl font-bold mb-4">Popular Cakes</h2>
+      <div id="cakes-grid"
+           class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"></div>
+    </div>
+  </section>
+
+  <!-- ⭐ PASTRIES SECTION -->
+  <section id="pastries" class="pb-14">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-xl font-bold mb-4">Popular Pastries</h2>
+      <div id="pastries-grid"
+           class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"></div>
+    </div>
+  </section>
+
+
+
+<script>
+/* ---------------- CAKES DATA ---------------- */
+const cakes = [
+  {id:101,name:"Chocolate Truffle Cake",price:549,img:"https://images.pexels.com/photos/2071781/pexels-photo-2071781.jpeg?auto=compress"},
+  {id:102,name:"Strawberry Cream Cake",price:499,img:"https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg?auto=compress"},
+  {id:103,name:"Black Forest Cake",price:599,img:"https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg?auto=compress"},
+  {id:104,name:"Vanilla Birthday Cake",price:399,img:"https://images.pexels.com/photos/4109995/pexels-photo-4109995.jpeg?auto=compress"},
+];
+
+/* ---------------- PASTRIES DATA ---------------- */
+const pastries = [
+  {id:201,name:"Chocolate Pastry",price:99,img:"https://images.pexels.com/photos/1055272/pexels-photo-1055272.jpeg?auto=compress"},
+  {id:202,name:"Strawberry Pastry",price:89,img:"https://images.pexels.com/photos/302680/pexels-photo-302680.jpeg?auto=compress"},
+  {id:203,name:"Black Forest Pastry",price:109,img:"https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg?auto=compress"},
+  {id:204,name:"Vanilla Pastry",price:79,img:"https://images.pexels.com/photos/4110006/pexels-photo-4110006.jpeg?auto=compress"},
+];
+
+let cart = [];
+
+
+/* ----------- RENDER CAKES ----------- */
+function renderCakes(){
+  document.getElementById("cakes-grid").innerHTML =
+    cakes.map(p => `
+      <div class="bg-white shadow rounded">
+        <img src="${p.img}" class="h-40 w-full object-cover">
+        <div class="p-4">
+          <h3 class="font-semibold">${p.name}</h3>
+          <p class="text-sm">₹${p.price}</p>
+          <button onclick="addToCart(${p.id}, 'cake')"
+            class="mt-3 w-full bg-pink-500 text-white py-2 rounded hover:bg-pink-600">
+            Add to Cart
+          </button>
+        </div>
+      </div>
+    `).join("");
+}
+
+/* ----------- RENDER PASTRIES ----------- */
+function renderPastries(){
+  document.getElementById("pastries-grid").innerHTML =
+    pastries.map(p => `
+      <div class="bg-white shadow rounded">
+        <img src="${p.img}" class="h-40 w-full object-cover">
+        <div class="p-4">
+          <h3 class="font-semibold">${p.name}</h3>
+          <p class="text-sm">₹${p.price}</p>
+          <button onclick="addToCart(${p.id}, 'pastry')"
+            class="mt-3 w-full bg-pink-500 text-white py-2 rounded hover:bg-pink-600">
+            Add to Cart
+          </button>
+        </div>
+      </div>
+    `).join("");
+}
+
+
+
+/* ----------- ADD TO CART ----------- */
+function addToCart(id, type){
+  const list = type === "cake" ? cakes : pastries;
+  const product = list.find(p => p.id === id);
+
+  const item = cart.find(i => i.id === id);
+  if(item) item.qty++;
+  else cart.push({...product, qty:1});
+
+  updateCart();
+  toggleCart(true);
+}
+
+/* ----------- REMOVE FROM CART ----------- */
+function removeFromCart(id){
+  cart = cart.filter(i => i.id !== id);
+  updateCart();
+}
+
+/* ----------- UPDATE CART ----------- */
+function updateCart(){
+  const items = document.getElementById("cart-items");
+
+  if(cart.length === 0){
+    items.innerHTML = `<p class="text-sm">Cart is empty.</p>`;
+  } else {
+    items.innerHTML = cart.map(i => `
+      <div class="flex items-center gap-3">
+        <img src="${i.img}" class="w-10 h-10 rounded-full">
+        <div class="flex-1">
+          <p>${i.name}</p>
+          <p class="text-sm">₹${i.price} × ${i.qty}</p>
+        </div>
+        <button onclick="removeFromCart(${i.id})" class="text-red-500">
+          <i class="fa-solid fa-trash"></i>
+        </button>
+      </div>
+    `).join("");
+  }
+
+  document.getElementById("cart-total").innerHTML =
+    `₹${cart.reduce((t,i)=>t+i.price*i.qty,0).toFixed(2)}`;
+
+  document.getElementById("cart-count").innerHTML =
+    cart.reduce((t,i)=>t+i.qty,0);
+}
+
+
+/* ----------- PANEL TOGGLES ----------- */
+function toggleCart(show){
+  const p = document.getElementById("cart-panel");
+  const o = document.getElementById("overlay");
+  show || p.classList.contains("hidden")
+    ? (p.classList.remove("hidden"),o.classList.remove("hidden"))
+    : (p.classList.add("hidden"),o.classList.add("hidden"));
+}
+
+function toggleLogin(){
+  document.getElementById("login-panel").classList.toggle("hidden");
+  document.getElementById("overlay").classList.toggle("hidden");
+}
+
+
+/* ----------- OVERLAY CLICK ----------- */
+document.getElementById("cart-btn").onclick = toggleCart;
+document.getElementById("login-btn").onclick = toggleLogin;
+
+document.getElementById("overlay").onclick = () => {
+  document.getElementById("cart-panel").classList.add("hidden");
+  document.getElementById("login-panel").classList.add("hidden");
+  document.getElementById("overlay").classList.add("hidden");
+};
+
+
+
+renderCakes();
+renderPastries();
+updateCart();
+</script>
+
+</body>
+</html>

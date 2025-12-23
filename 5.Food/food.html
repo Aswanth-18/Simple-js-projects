@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <title>Bakevibe</title>
+
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+  </head>
+
+  <body class="bg-orange-100">
+
+  
+    <header class="w-full bg-white shadow-sm sticky top-0 z-50">
+      <div class="max-w-6xl mx-auto flex items-center justify-between py-2 px-4">
+
+        <div class="flex items-center gap-2">
+          <img src="food/ff.png" class="h-16 object-contain" />
+        </div>
+
+        <nav class="hidden md:flex gap-8 font-medium">
+          <a href="#" class="hover:text-orange-900">Home</a>
+          <a href="#pastry" class="hover:text-orange-900">Pastries</a>
+          <a href="#cakes" class="hover:text-orange-900">Cakes</a>
+          <a href="#About" class="hover:text-orange-900">About</a>
+        </nav>
+
+        <div class="flex items-center gap-3">
+
+          
+          <button id="cart-btn"
+            class="relative w-10 h-10 flex items-center justify-center bg-[#D2B48C] hover:bg-[#6F4E37] hover:text-white duration-300 rounded">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span id="cart-count"
+              class="absolute -top-1 -right-1 bg-[#8B4513] text-white text-[12px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+              0
+            </span>
+          </button>
+
+          
+          <button id="login-btn"
+            class="w-10 h-10 flex items-center justify-center bg-[#D2B48C] hover:bg-[#6F4E37] hover:text-white duration-300 rounded">
+            <i class="fa-solid fa-user"></i>
+          </button>
+
+        </div>
+      </div>
+    </header>
+
+    
+    <div class="flex justify-center pt-25">
+      <img id="sliderImage"
+        src="food/banner.3.png"
+        class="w-200 max-w-6xl h-auto object-contain transition-opacity duration-700"
+      />
+    </div>
+
+  
+    <div id="cart-panel"
+      class="hidden fixed right-4 top-20 w-80 bg-white shadow-xl rounded-md z-50">
+      
+      <div class="p-4 border-b flex justify-between items-center">
+        <h3 class="font-bold">Your Cart</h3>
+        <button onclick="toggleCart(false)">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div id="cart-items"
+        class="max-h-64 overflow-y-auto px-4 py-3 space-y-3"></div>
+
+      <div class="px-4 py-3 border-t">
+        <div class="flex justify-between font-semibold mb-3">
+          <span>Total:</span>
+          <span id="cart-total">₹0.00</span>
+        </div>
+
+        <button class="w-full py-2 border border-[#4B2E2B]
+          text-[#4B2E2B] rounded hover:bg-[#4B2E2B] hover:text-white">
+          Checkout
+        </button>
+      </div>
+    </div>
+
+  
+    <div id="login-panel"
+      class="hidden fixed right-4 top-20 w-80 bg-white shadow-xl rounded-md z-50">
+
+      <div class="p-4 border-b flex justify-between items-center ">
+        <h3 class="font-bold">Login Now</h3>
+        <button onclick="toggleLogin(false)">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="p-4 space-y-3">
+        <input type="email" placeholder="Email"
+          class="w-full border px-3 py-2 rounded">
+        
+        <input type="password" placeholder="Password"
+          class="w-full border px-3 py-2 rounded">
+
+        <button class="w-full py-2 border border-[#4B2E2B]  bg-[#D2B48C]
+          text-[#4B2E2B] rounded hover:bg-[#4B2E2B] duration-200 hover:text-white">
+          Login Now
+        </button>
+      </div>
+    </div>
+
+    <div id="overlay"
+      class="hidden fixed inset-0 bg-black/20 z-40">
+    </div>
+
+
+  
+    <section id="pastry" class="pb-14 mt-25">
+      <div class="max-w-6xl mx-auto px-4">
+        <h2 class="text-xl font-bold mb-4">Delicious Pastries</h2>
+        
+        <div id="pastries-grid"
+          class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"></div>
+      </div>
+    </section>
+
+    
+    <section id="cakes" class="pb-14">
+      <div class="max-w-6xl mx-auto px-4">
+        <h2 class="text-xl font-bold mb-4">Popular Cakes</h2>
+
+        <div id="cakes-grid"
+          class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"></div>
+      </div>
+    </section>
+
+    <footer id="About" class="bg-[#D2B48C] text-[#3A2A1A] py-12 mt-10">
+  <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-10">
+
+    
+    <div>
+      <h3 class="text-xl font-bold mb-3">About BakeVibe</h3>
+      <div class="w-24 h-0.5 bg-[#8B4513] mb-6"></div>
+      <p class="text-sm leading-relaxed text-[#4B3F31]">
+        BakeVibe is your destination for freshly baked cakes, pastries,
+        and delightful treats made with love and premium ingredients.
+        We bring happiness to your celebrations with baked perfection.
+      </p>
+    </div>
+
+    
+    <div>
+      <h3 class="text-lg font-semibold mb-3">Collection</h3>
+      <div class="w-24 h-0.5 bg-[#8B4513] mb-6"></div>
+      <ul class="space-y-2 text-sm text-[#4B3F31]">
+        <li><a href="#pastry" class="hover:text-black">Pastries</a></li>
+        <li><a href="#cakes" class="hover:text-black">Cakes</a></li>
+        <li><a href="#" class="hover:text-black">Snacks</a></li>
+        <li><a href="#" class="hover:text-black">Gifting</a></li>
+        <li><a href="#" class="hover:text-black">Special Combos</a></li>
+      </ul>
+    </div>
+
+    
+    <div>
+      <h3 class="text-lg font-semibold mb-3">Information</h3>
+      <div class="w-24 h-0.5 bg-[#8B4513] mb-6"></div>
+      <ul class="space-y-2 text-sm text-[#4B3F31]">
+        <li><a href="#" class="hover:text-black">Return & Refund Policy</a></li>
+        <li><a href="#" class="hover:text-black">Terms & Conditions</a></li>
+        <li><a href="#" class="hover:text-black">Privacy Policy</a></li>
+        <li><a href="#" class="hover:text-black">Contact Us</a></li>
+        <li><a href="#about" class="hover:text-black">About Us</a></li>
+      </ul>
+    </div>
+
+    
+    <div>
+      <h3 class="text-lg font-semibold mb-3">Connect With Us</h3>
+      <div class="w-24 h-0.5 bg-[#8B4513] mb-6"></div>
+      <p class="text-sm text-[#4B3F31] mb-3">
+        Subscribe to get updates on offers & new arrivals.
+      </p>
+
+      
+      <div class="flex">
+        <input type="email" placeholder="your@email.com"
+          class="flex-1 px-3 py-2 text-sm border bg-white border-[#bda88a] rounded-l outline-none" />
+        <button class="px-4 bg-[#8B4513] text-white font-medium rounded-r">
+          Join
+        </button>
+      </div>
+
+   
+      <div class="flex gap-4 text-xl mt-4 text-[#3A2A1A]">
+        <a href="#" class="hover:text-black hover:-translate-y-1 transition duration-300"><i class="fa-brands fa-facebook"></i></a>
+        <a href="https://www.instagram.com/_aswanth_18_/?next=%2F" class="hover:text-black hover:-translate-y-1 transition duration-300"><i class="fa-brands fa-instagram"></i></a>
+        
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="text-center text-sm text-[#4B3F31] mt-15 border-t border-orange-900 pt-4">
+    © 2025 BakeVibe. 
+  </div>
+</footer>
+
+
+    <script src="index.js"></script>
+  </body>
+</html>

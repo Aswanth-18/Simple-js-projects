@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>QR Generator</title>
+  </head>
+
+  <body
+    class="bg-gray-100 dark:bg-gray-900 dark:text-white h-screen flex justify-center items-center transition duration-300"
+  >
+    <div
+      class="w-120 h-auto mx-auto bg-gray-800 rounded-2xl shadow-lg hover:shadow-purple-500 duration-500 p-6"
+    >
+      <h1 class="text-3xl font-semibold text-center">QR Generator</h1>
+
+      <div class="mt-6 flex justify-center gap-3">
+        <input
+          type="text"
+          id="text"
+          placeholder="Enter URL or Text"
+          class="p-2 w-[250px] text-base shadow-lg border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 dark:bg-gray-800 dark:border-gray-600"
+        />
+
+        <button
+          onclick="generateQRCode()"
+          class="px-5 py-2 shadow-lg bg-purple-500 text-white font-semibold rounded-md cursor-pointer transition duration-300 hover:bg-purple-700"
+        >
+          Generate
+        </button>
+      </div>
+
+      <div id="loading" class="hidden text-center mt-4 text-purple-400">
+        Generating QR...
+      </div>
+
+      <div id="qrcode" class="mt-6 flex justify-center"></div>
+
+      <div class="flex justify-center mt-4">
+        <button
+          id="downloadBtn"
+          class="hidden px-5 py-2 bg-green-500 text-white rounded-md hover:bg-green-700 transition"
+        >
+          Download QR
+        </button>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="QR.js"></script>
+  </body>
+</html>

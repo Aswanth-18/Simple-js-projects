@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tailwind Music Player</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white flex flex-col items-center justify-center min-h-screen">
+
+  <div class="bg-gray-800 p-6 rounded-2xl shadow-2xl w-80 text-center">
+    <h1 class="text-2xl font-bold mb-5">🎶 Music Player</h1>
+
+    <div class="mb-4">
+      <img id="cover" src="https://cdn-icons-png.flaticon.com/512/727/727245.png" 
+           alt="cover" class="w-40 h-40 mx-auto rounded-full shadow-lg border-4 border-gray-700">
+    </div>
+
+    <h2 id="title" class="text-lg font-semibold mb-3">Song Title</h2>
+
+    <audio id="audio"></audio>
+
+    <div class="w-full bg-gray-700 h-2 rounded-full mb-4">
+      <div id="progress" class="bg-blue-500 h-2 rounded-full w-0"></div>
+    </div>
+
+    <div class="flex justify-center gap-6">
+      <button id="prev" class="bg-gray-700 hover:bg-gray-600 p-3 rounded-full">⏮</button>
+      <button id="play" class="bg-blue-600 hover:bg-blue-700 p-3 rounded-full">▶️</button>
+      <button id="next" class="bg-gray-700 hover:bg-gray-600 p-3 rounded-full">⏭</button>
+    </div>
+  </div>
+
+  <script>
+    const songs = [
+      { title: "Acoustic Breeze", file: "https://www.bensound.com/bensound-music/bensound-acousticbreeze.mp3" },
+      { title: "Creative Minds", file: "https://www.bensound.com/bensound-music/bensound-creativeminds.mp3" },
+      { title: "Sunny", file: "https://www.bensound.com/bensound-music/bensound-sunny.mp3" }
+    ];
+
+    let index = 0;
+    const audio = document.getElementById('audio');
+    const title = document.getElementById('title');
+    const playBtn = document.getElementById('play');
+    const prevBtn = document.getElementById('prev');
+    const nextBtn = document.getElementById('next');
+    const progress = document.getElementById('progress');
+
+    // Load song
+    function loadSong(i) {
+      title.textContent = songs[i].title;
+      audio.src = songs[i].file;
+    }
+
+    // Play/Pause
+    let isPlaying = false;
+    function playSong() {
+      isPlaying = true;
+      audio.play();
+      playBtn.textContent = '⏸';
+    }
+    function pauseSong() {
+      isPlaying = false;
+      audio.pause();
+      playBtn.textContent = '▶️';
+    }
+
+    playBtn.addEventListener('click', () => {
+      isPlaying ? pauseSong() : playSong();
+    });
+
+    prevBtn.addEventListener('click', () => {
+      index = (index - 1 + songs.length) % songs.length;
+      loadSong(index);
+      playSong();
+    });
+
+    nextBtn.addEventListener('click', () => {
+      index = (index + 1) % songs.length;
+      loadSong(index);
+      playSong();
+    });
+
+    audio.addEventListener('timeupdate', () => {
+      const progressPercent = (audio.currentTime / audio.duration) * 100;
+      progress.style.width = `${progressPercent}%`;
+    });
+
+    audio.addEventListener('ended', () => {
+      nextBtn.click();
+    });
+
+    loadSong(index);
+  </script>
+</body>
+</html>
